@@ -1,0 +1,90 @@
+{
+  "name": "web-controller",
+  "version": "1.0.0",
+  "description": "Phone-to-Gamepad Controller System",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --no-sandbox",
+    "postinstall": "chmod 4755 node_modules/electron/dist/chrome-sandbox 2>/dev/null || true && electron-rebuild -f -w uinput2",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux && bash build/create-launcher.sh"
+  },
+  "keywords": [
+    "gamepad",
+    "controller",
+    "websocket",
+    "virtual-controller"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-rebuild": "^3.2.9"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.5",
+    "electron-store": "^8.1.0",
+    "uinput2": "^1.0.2",
+    "ws": "^8.16.0"
+  },
+  "build": {
+    "appId": "com.webcontroller.app",
+    "productName": "Web Controller",
+    "directories": {
+      "output": "dist"
+    },
+    "afterPack": "./build/after-pack.js",
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Utility",
+      "executableName": "web-controller",
+      "executableArgs": [
+        "--no-sandbox"
+      ]
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
