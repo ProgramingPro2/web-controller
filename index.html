@@ -1,290 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Controller - Configuration</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            min-height: 100vh;
-            padding: 20px;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        min-height: 100vh;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-        }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+      }
 
-        h1 {
-            color: #667eea;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+      h1 {
+        color: #667eea;
+        margin-bottom: 30px;
+        text-align: center;
+      }
 
-        .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
 
-        .section h2 {
-            color: #495057;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
+      .section h2 {
+        color: #495057;
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
 
-        .pin-display {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+      .pin-display {
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
 
-        .pin-display label {
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+      .pin-display label {
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
 
-        .pin-display .pin-value {
-            font-size: 48px;
-            font-weight: bold;
-            color: white;
-            letter-spacing: 8px;
-            font-family: 'Courier New', monospace;
-        }
+      .pin-display .pin-value {
+        font-size: 48px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 8px;
+        font-family: "Courier New", monospace;
+      }
 
-        .pin-display .pin-info {
-            margin-top: 10px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.8);
-        }
+      .pin-display .pin-info {
+        margin-top: 10px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+      }
 
-        .connection-info {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
+      .connection-info {
+        background: #e7f3ff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
 
-        .connection-info label {
-            display: block;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 5px;
-        }
+      .connection-info label {
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 5px;
+      }
 
-        .connection-info .url {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0066cc;
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-        }
+      .connection-info .url {
+        font-size: 18px;
+        font-weight: bold;
+        color: #0066cc;
+        word-break: break-all;
+        font-family: "Courier New", monospace;
+      }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
 
-        .stat-item {
-            text-align: center;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid #e9ecef;
-        }
+      .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+      }
 
-        .stat-item .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #667eea;
-        }
+      .stat-item .stat-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #667eea;
+      }
 
-        .stat-item .stat-label {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
+      .stat-item .stat-label {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+      }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+      .form-group {
+        margin-bottom: 15px;
+      }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #495057;
-            font-weight: 500;
-        }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #495057;
+        font-weight: 500;
+      }
 
-        .form-group input[type="number"],
-        .form-group input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
+      .form-group input[type="number"],
+      .form-group input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
 
-        .form-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
+      .form-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-        }
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+      }
 
-        .pin-entry {
-            margin-top: 20px;
-            padding: 20px;
-            background: #fff3cd;
-            border-radius: 8px;
-            border: 2px solid #ffc107;
-        }
+      .pin-entry {
+        margin-top: 20px;
+        padding: 20px;
+        background: #fff3cd;
+        border-radius: 8px;
+        border: 2px solid #ffc107;
+      }
 
-        .pin-entry h3 {
-            margin-bottom: 10px;
-            color: #856404;
-        }
+      .pin-entry h3 {
+        margin-bottom: 10px;
+        color: #856404;
+      }
 
-        .pin-entry input {
-            width: 200px;
-            padding: 10px;
-            font-size: 18px;
-            text-align: center;
-            letter-spacing: 4px;
-            font-family: 'Courier New', monospace;
-            border: 2px solid #ffc107;
-            border-radius: 6px;
-        }
+      .pin-entry input {
+        width: 200px;
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 4px;
+        font-family: "Courier New", monospace;
+        border: 2px solid #ffc107;
+        border-radius: 6px;
+      }
 
-        .pin-entry button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            background: #ffc107;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+      .pin-entry button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        background: #ffc107;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
 
-        .pin-entry button:hover {
-            background: #ffb300;
-        }
+      .pin-entry button:hover {
+        background: #ffb300;
+      }
 
-        button {
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+      button {
+        padding: 10px 20px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
 
-        button:hover {
-            background: #5568d3;
-        }
+      button:hover {
+        background: #5568d3;
+      }
 
-        .hidden {
-            display: none;
-        }
+      .hidden {
+        display: none;
+      }
+
+      .client-list {
+        margin-top: 20px;
+      }
+
+      .client-list h3 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .client-list-container {
+        background: #f5f5f5;
+        border-radius: 8px;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .client-list-empty {
+        text-align: center;
+        color: #999;
+        padding: 20px;
+      }
+
+      .client-item {
+        background: white;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .client-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .client-info {
+        flex: 1;
+      }
+
+      .client-name {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .client-details {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .client-id {
+        background: #667eea;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Web Controller Configuration</h1>
+      <h1>Web Controller Configuration</h1>
 
-        <div class="section">
-            <div class="pin-display">
-                <label>Current Access PIN</label>
-                <div class="pin-value" id="pin-value">------</div>
-                <div class="pin-info">PIN changes every 30 seconds</div>
-            </div>
-
-            <div class="connection-info">
-                <label>Connection URL (open on your phone):</label>
-                <div class="url" id="connection-url">Loading...</div>
-            </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="controller-count">0</div>
-                    <div class="stat-label">Active Controllers</div>
-                </div>
-            </div>
+      <div class="section">
+        <div class="pin-display">
+          <label>Current Access PIN</label>
+          <div class="pin-value" id="pin-value">------</div>
+          <div class="pin-info">PIN changes every 30 seconds</div>
         </div>
 
-        <div class="section">
-            <h2>Settings</h2>
-            
-            <div class="form-group">
-                <label for="port">WebSocket Port:</label>
-                <input type="number" id="port" min="1024" max="65535" value="4141">
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="per-device-pin">
-                    <label for="per-device-pin">Enable per-device PIN (requires PIN per phone connection)</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="auto-start">
-                    <label for="auto-start">Start on system boot</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="minimize-to-tray">
-                    <label for="minimize-to-tray">Minimize to system tray</label>
-                </div>
-            </div>
-
-            <button onclick="saveConfig()">Save Settings</button>
+        <div class="connection-info">
+          <label>Connection URL (open on your phone):</label>
+          <div class="url" id="connection-url">Loading...</div>
         </div>
 
-        <div class="section pin-entry hidden" id="pin-entry-section">
-            <h3>Enter PIN to Access</h3>
-            <input type="text" id="pin-input" placeholder="000000" maxlength="6" pattern="[0-9]{6}">
-            <button onclick="submitPin()">Submit</button>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-value" id="controller-count">0</div>
+            <div class="stat-label">Active Controllers</div>
+          </div>
         </div>
+
+        <div class="client-list">
+          <h3>Connected Devices</h3>
+          <div id="client-list-container" class="client-list-container">
+            <div class="client-list-empty">No devices connected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Settings</h2>
+
+        <div class="form-group">
+          <label for="port">WebSocket Port:</label>
+          <input type="number" id="port" min="1024" max="65535" value="4141" />
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="per-device-pin" />
+            <label for="per-device-pin"
+              >Enable per-device PIN (requires PIN per phone connection)</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="auto-start" />
+            <label for="auto-start">Start on system boot</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="minimize-to-tray" />
+            <label for="minimize-to-tray">Minimize to system tray</label>
+          </div>
+        </div>
+
+        <button onclick="saveConfig()">Save Settings</button>
+      </div>
+
+      <div class="section pin-entry hidden" id="pin-entry-section">
+        <h3>Enter PIN to Access</h3>
+        <input
+          type="text"
+          id="pin-input"
+          placeholder="000000"
+          maxlength="6"
+          pattern="[0-9]{6}"
+        />
+        <button onclick="submitPin()">Submit</button>
+      </div>
     </div>
 
     <script src="renderer.js"></script>
-</body>
+  </body>
 </html>
-
