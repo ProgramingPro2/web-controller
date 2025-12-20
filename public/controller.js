@@ -401,13 +401,38 @@ function connectWebSocket() {
         
         ws.onerror = (error) => {
             console.error('WebSocket error:', error);
-            updateConnectionStatus('error', 'Connection error');
+            console.error('WebSocket readyState:', ws.readyState);
+            console.error('Attempted URL:', wsUrl);
+            updateConnectionStatus('error', 'Connection error - Check network');
+            
+            // Show helpful error message
+            const pinError = document.getElementById('pin-error');
+            if (pinError) {
+                pinError.textContent = 'Cannot connect to server. Make sure you\'re using the correct IP address.';
+                pinError.classList.remove('hidden');
+            }
         };
         
         ws.onclose = (event) => {
             console.log('WebSocket closed', event.code, event.reason);
+            console.log('Close event details:', {
+                code: event.code,
+                reason: event.reason,
+                wasClean: event.wasClean,
+                attemptedUrl: wsUrl
+            });
             isConnected = false;
             updateConnectionStatus('disconnected', 'Disconnected');
+            
+            // Show error for common connection failure codes
+            if (event.code === 1006) {
+                // Abnormal closure - usually means connection refused or network issue
+                const pinError = document.getElementById('pin-error');
+                if (pinError) {
+                    pinError.textContent = 'Cannot reach server. Check if server is running and use the correct IP address from the main app.';
+                    pinError.classList.remove('hidden');
+                }
+            }
             
             // Attempt reconnection only if not a clean close
             if (event.code !== 1000 && reconnectAttempts < maxReconnectAttempts) {
@@ -420,11 +445,23 @@ function connectWebSocket() {
                 }, delay);
             } else if (reconnectAttempts >= maxReconnectAttempts) {
                 updateConnectionStatus('error', 'Connection failed');
+                const pinError = document.getElementById('pin-error');
+                if (pinError && !pinError.textContent) {
+                    pinError.textContent = 'Connection failed after multiple attempts. Please check the server IP address.';
+                    pinError.classList.remove('hidden');
+                }
             }
         };
     } catch (error) {
         console.error('Error creating WebSocket:', error);
+        console.error('Attempted URL:', wsUrl);
         updateConnectionStatus('error', 'Connection failed: ' + error.message);
+        
+        const pinError = document.getElementById('pin-error');
+        if (pinError) {
+            pinError.textContent = 'Failed to create WebSocket connection. Error: ' + error.message;
+            pinError.classList.remove('hidden');
+        }
         
         // Try to reconnect after a delay
         if (reconnectAttempts < maxReconnectAttempts) {
