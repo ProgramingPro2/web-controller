@@ -28,8 +28,10 @@ class WebSocketServer {
         this.handleConnection(ws, req);
       });
 
-      this.httpServer.listen(this.port, () => {
-        console.log(`WebSocket server listening on port ${this.port}`);
+      this.httpServer.listen(this.port, "0.0.0.0", () => {
+        console.log(
+          `WebSocket server listening on port ${this.port} (all interfaces)`
+        );
         resolve();
       });
 
